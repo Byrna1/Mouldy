@@ -48,6 +48,7 @@ AMouldyCharacter::AMouldyCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+
 }
 
 void AMouldyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -95,8 +96,8 @@ void AMouldyCharacter::DoMove(float Right, float Forward)
 	if (GetController() != nullptr)
 	{
 		// find out which way is forward
-		const FRotator Rotation = GetController()->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw + 45, 0);
+		//const FRotator Rotation = GetController()->GetControlRotation();
+		const FRotator YawRotation(0, 45, 0);
 
 		// get forward vector
 		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
