@@ -23,7 +23,7 @@ AMouldyCharacter::AMouldyCharacter()
 	bUseControllerRotationRoll = false;
 
 	// Configure character movement
-	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->bOrientRotationToMovement = false;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
 
 	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
@@ -56,16 +56,36 @@ void AMouldyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 		
+		APlayerController* PlayerController = Cast<APlayerController>(GetController());
+
+		UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
+
+		Subsystem->ClearAllMappings();	//remove default mappings
+		Subsystem->AddMappingContext(InputMapping, 0);	//add my input mapping
+
+		UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+
 		// Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+		//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
+		//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMouldyCharacter::Move);
+		//EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMouldyCharacter::Move);
 		//EnhancedInputComponent->BindAction(MouseLookAction, ETriggerEvent::Triggered, this, &AMouldyCharacter::Look);
 
 		// Looking
 		//EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMouldyCharacter::Look);
+
+		Input->BindAction(IA_Move, ETriggerEvent::Triggered, this, &AMouldyCharacter::Move);
+		Input->BindAction(IA_Jump, ETriggerEvent::Started, this, &ACharacter::Jump);
+		Input->BindAction(IA_Jump, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+		Input->BindAction(IA_Attack1, ETriggerEvent::Triggered, this, &AMouldyCharacter::Attack1);
+		Input->BindAction(IA_Attack2, ETriggerEvent::Triggered, this, &AMouldyCharacter::Attack2);
+		/*Input->BindAction(IA_Wep0, ETriggerEvent::Triggered, this, &AMouldyCharacter::Wep0);
+		Input->BindAction(IA_Wep1, ETriggerEvent::Triggered, this, &AMouldyCharacter::Wep1);
+		Input->BindAction(IA_WepScrollUp, ETriggerEvent::Triggered, this, &AMouldyCharacter::WepScrollUp);
+		Input->BindAction(IA_WepScrollDown, ETriggerEvent::Triggered, this, &AMouldyCharacter::WepScrollDown);*/
+
 	}
 	else
 	{
@@ -132,3 +152,33 @@ void AMouldyCharacter::DoJumpEnd()
 	// signal the character to stop jumping
 	StopJumping();
 }
+
+void AMouldyCharacter::Attack1(const FInputActionValue& Value)
+{
+	UE_LOG(LogMouldy, Error, TEXT("Attack1"));
+}
+
+void AMouldyCharacter::Attack2(const FInputActionValue& Value)
+{
+	UE_LOG(LogMouldy, Error, TEXT("Attack2"));
+}
+
+//void AMouldyCharacter::Wep0(const FInputActionValue& Value)
+//{
+//
+//}
+//
+//void AMouldyCharacter::Wep1(const FInputActionValue& Value)
+//{
+//
+//}
+//
+//void AMouldyCharacter::WepScrollUp(const FInputActionValue& Value)
+//{
+//
+//}
+//
+//void AMouldyCharacter::WepScrollDown(const FInputActionValue& Value)
+//{
+//
+//}

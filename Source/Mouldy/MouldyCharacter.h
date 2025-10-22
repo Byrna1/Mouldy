@@ -5,10 +5,13 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "EnhancedInputComponent.h"
+#include "InputActionValue.h"
 #include "MouldyCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
+class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 
@@ -34,12 +37,12 @@ class AMouldyCharacter : public ACharacter
 protected:
 
 	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, Category="Input")
-	UInputAction* JumpAction;
+	//UPROPERTY(EditAnywhere, Category="Input")
+	//UInputAction* JumpAction;
 
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, Category="Input")
-	UInputAction* MoveAction;
+	///** Move Input Action */
+	//UPROPERTY(EditAnywhere, Category="Input")
+	//UInputAction* MoveAction;
 
 	/** Look Input Action */
 	//UPROPERTY(EditAnywhere, Category="Input")
@@ -54,10 +57,29 @@ public:
 	/** Constructor */
 	AMouldyCharacter();	
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputMappingContext* InputMapping;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputAction* IA_Move;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputAction* IA_Jump;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputAction* IA_Attack1;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputAction* IA_Attack2;
+	/*UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputAction* IA_Wep0;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputAction* IA_Wep1;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputAction* IA_WepScrollUp;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputAction* IA_WepScrollDown;*/
+
 protected:
 
 	/** Initialize input action bindings */
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
 protected:
 
@@ -66,6 +88,16 @@ protected:
 
 	/** Called for looking input */
 	//void Look(const FInputActionValue& Value);
+
+
+	UFUNCTION()void Attack1(const FInputActionValue& Value);
+	UFUNCTION()void Attack2(const FInputActionValue& Value);
+
+	/*UFUNCTION()void Wep0(const FInputActionValue& Value);
+	UFUNCTION()void Wep1(const FInputActionValue& Value);
+
+	UFUNCTION()void WepScrollUp(const FInputActionValue& Value);
+	UFUNCTION()void WepScrollDown(const FInputActionValue& Value);*/
 
 public:
 
