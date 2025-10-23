@@ -51,6 +51,12 @@ AMouldyCharacter::AMouldyCharacter()
 
 }
 
+void AMouldyCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	
+}
+
 void AMouldyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	// Set up action bindings
@@ -76,6 +82,7 @@ void AMouldyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		// Looking
 		//EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMouldyCharacter::Look);
 
+		Input->BindAction(IA_MouseLook, ETriggerEvent::Triggered, this, &AMouldyCharacter::Look);
 		Input->BindAction(IA_Move, ETriggerEvent::Triggered, this, &AMouldyCharacter::Move);
 		Input->BindAction(IA_Jump, ETriggerEvent::Started, this, &ACharacter::Jump);
 		Input->BindAction(IA_Jump, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
@@ -102,14 +109,14 @@ void AMouldyCharacter::Move(const FInputActionValue& Value)
 	DoMove(MovementVector.X, MovementVector.Y);
 }
 
-//void AMouldyCharacter::Look(const FInputActionValue& Value)
-//{
-//	// input is a Vector2D
-//	FVector2D LookAxisVector = Value.Get<FVector2D>();
-//
-//	// route the input
-//	DoLook(LookAxisVector.X, LookAxisVector.Y);
-//}
+void AMouldyCharacter::Look(const FInputActionValue& Value)
+{
+	// input is a Vector2D
+	FVector2D LookAxisVector = Value.Get<FVector2D>();
+
+	// route the input
+	DoLook(LookAxisVector.X, LookAxisVector.Y);
+}
 
 void AMouldyCharacter::DoMove(float Right, float Forward)
 {
@@ -131,15 +138,16 @@ void AMouldyCharacter::DoMove(float Right, float Forward)
 	}
 }
 
-//void AMouldyCharacter::DoLook(float Yaw, float Pitch)
-//{
-//	if (GetController() != nullptr)
-//	{
-//		// add yaw and pitch input to controller
-//		AddControllerYawInput(Yaw);
-//		AddControllerPitchInput(Pitch);
-//	}
-//}
+void AMouldyCharacter::DoLook(float Yaw, float Pitch)
+{
+	//if (GetController() != nullptr)
+	//{
+	//	// add yaw and pitch input to controller
+	//	AddControllerYawInput(Yaw);
+	//	AddControllerPitchInput(Pitch);
+	//}
+	SetActorRotation(FRotator(0.0f, Yaw, 0.0f));
+}
 
 void AMouldyCharacter::DoJumpStart()
 {

@@ -33,6 +33,8 @@ class AMouldyCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
+
+	virtual void Tick(float DeltaSeconds) override;
 	
 protected:
 
@@ -75,6 +77,8 @@ public:
 	UInputAction* IA_WepScrollUp;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
 	UInputAction* IA_WepScrollDown;*/
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputAction* IA_MouseLook;
 
 protected:
 
@@ -87,7 +91,7 @@ protected:
 	void Move(const FInputActionValue& Value);
 
 	/** Called for looking input */
-	//void Look(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);
 
 
 	UFUNCTION()void Attack1(const FInputActionValue& Value);
@@ -106,8 +110,8 @@ public:
 	virtual void DoMove(float Right, float Forward);
 
 	/** Handles look inputs from either controls or UI interfaces */
-	//UFUNCTION(BlueprintCallable, Category="Input")
-	//virtual void DoLook(float Yaw, float Pitch);
+	UFUNCTION(BlueprintCallable, Category="Input")
+	virtual void DoLook(float Yaw, float Pitch);
 
 	/** Handles jump pressed inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
