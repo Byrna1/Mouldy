@@ -19,7 +19,7 @@ AMouldyCharacter::AMouldyCharacter()
 		
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
-	bUseControllerRotationYaw = false;
+	bUseControllerRotationYaw = true;
 	bUseControllerRotationRoll = false;
 
 	// Configure character movement
@@ -39,7 +39,7 @@ AMouldyCharacter::AMouldyCharacter()
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->TargetArmLength = 400.0f;
-	CameraBoom->bUsePawnControlRotation = true;
+	CameraBoom->bUsePawnControlRotation = false;
 
 	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
@@ -82,7 +82,7 @@ void AMouldyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		// Looking
 		//EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMouldyCharacter::Look);
 
-		Input->BindAction(IA_MouseLook, ETriggerEvent::Triggered, this, &AMouldyCharacter::Look);
+		//Input->BindAction(IA_MouseLook, ETriggerEvent::Triggered, this, &AMouldyCharacter::Look);
 		Input->BindAction(IA_Move, ETriggerEvent::Triggered, this, &AMouldyCharacter::Move);
 		Input->BindAction(IA_Jump, ETriggerEvent::Started, this, &ACharacter::Jump);
 		Input->BindAction(IA_Jump, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
@@ -109,14 +109,17 @@ void AMouldyCharacter::Move(const FInputActionValue& Value)
 	DoMove(MovementVector.X, MovementVector.Y);
 }
 
-void AMouldyCharacter::Look(const FInputActionValue& Value)
-{
-	// input is a Vector2D
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
-
-	// route the input
-	DoLook(LookAxisVector.X, LookAxisVector.Y);
-}
+//void AMouldyCharacter::Look(const FInputActionValue& Value)
+//{
+//	// input is a Vector2D
+//	//FVector2D LookAxisVector = Value.Get<FVector2D>();
+//
+//	// route the input
+//	//DoLook(LookAxisVector.X, LookAxisVector.Y);
+//
+//	FVector2D LookPosVector = Value.Get<FVector2D>();
+//	DoLook(LookPosVector.X, LookPosVector.Y);
+//}
 
 void AMouldyCharacter::DoMove(float Right, float Forward)
 {
@@ -138,16 +141,17 @@ void AMouldyCharacter::DoMove(float Right, float Forward)
 	}
 }
 
-void AMouldyCharacter::DoLook(float Yaw, float Pitch)
-{
-	//if (GetController() != nullptr)
-	//{
-	//	// add yaw and pitch input to controller
-	//	AddControllerYawInput(Yaw);
-	//	AddControllerPitchInput(Pitch);
-	//}
-	SetActorRotation(FRotator(0.0f, Yaw, 0.0f));
-}
+//void AMouldyCharacter::DoLook(float DeltaSeconds)
+//{
+//	//if (GetController() != nullptr)
+//	//{
+//	//	// add yaw and pitch input to controller
+//	//	AddControllerYawInput(Yaw);
+//	//	AddControllerPitchInput(Pitch);
+//	//}
+//}
+
+
 
 void AMouldyCharacter::DoJumpStart()
 {

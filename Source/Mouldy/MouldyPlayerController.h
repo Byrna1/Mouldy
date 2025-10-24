@@ -17,6 +17,8 @@ UCLASS(abstract)
 class AMouldyPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+	virtual void Tick(float DeltaSeconds) override;
 	
 protected:
 
@@ -41,4 +43,10 @@ protected:
 	/** Input mapping context setup */
 	virtual void SetupInputComponent() override;
 
+public:
+
+	UFUNCTION()void LookRotate(float DeltaSeconds);
+
+	/*UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "RotationConfiguration", meta = (AllowPrivateAccess = "true"))
+	float RotationInterpSpeed{ 120.f };*/
 };

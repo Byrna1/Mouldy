@@ -31,6 +31,13 @@ void AMouldyPlayerController::BeginPlay()
 		}
 	}
 	bShowMouseCursor = true;
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+void AMouldyPlayerController::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	LookRotate(DeltaSeconds);
 }
 
 void AMouldyPlayerController::SetupInputComponent()
@@ -57,5 +64,30 @@ void AMouldyPlayerController::SetupInputComponent()
 				}
 			}
 		}
+	}
+}
+
+void AMouldyPlayerController::LookRotate(float DeltaSeconds)
+{
+	FVector MousePosition, MouseDirection;
+
+	const bool bSuccess = DeprojectMousePositionToWorld(MousePosition, MouseDirection);
+
+	if (bSuccess == true)
+	{
+		const FVector ActorLoc = GetPawn()->GetActorLocation();
+
+		FVector MouseDirectionAdjusted = ActorLoc + (MouseDirection * 1000.f);
+		MouseDirectionAdjusted.Z = ActorLoc.Z;
+		FVector EndLocation = FMath::LinePlaneIntersection(
+			MousePosition,
+			MousePosition + (MouseDirection * 10000.f),
+			ActorLoc,
+			FVector{ 0.f, 0.f, 1.f }
+		);
+		EndLocation.Z = ActorLoc.Z;
+		FVector EndDirection = EndLocation - ActorLoc;
+
+		SetControlRotation(EndDirection.Rotation());
 	}
 }
