@@ -54,12 +54,12 @@ AMouldyCharacter::AMouldyCharacter()
 void AMouldyCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	if (WeaponDrawn)
+	if (WeaponUsed > 0)
 	{
 		WeaponSheatheTimer += DeltaSeconds;
 		if (WeaponSheatheTimer >= 5)
 		{
-			WeaponDrawn = false;
+			WeaponUsed = 0;
 			WeaponSheatheTimer = 0;
 			SheatheWeapon();
 		}
@@ -176,11 +176,13 @@ void AMouldyCharacter::DoJumpEnd()
 
 void AMouldyCharacter::Attack1(const FInputActionValue& Value)
 {
+	WeaponUsed = 1;
 	UE_LOG(LogMouldy, Error, TEXT("Attack1"));
 }
 
 void AMouldyCharacter::Attack2(const FInputActionValue& Value)
 {
+	WeaponUsed = 2;
 	UE_LOG(LogMouldy, Error, TEXT("Attack2"));
 }
 
