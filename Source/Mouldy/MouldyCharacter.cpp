@@ -54,7 +54,16 @@ AMouldyCharacter::AMouldyCharacter()
 void AMouldyCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	
+	if (WeaponDrawn)
+	{
+		WeaponSheatheTimer += DeltaSeconds;
+		if (WeaponSheatheTimer >= 5)
+		{
+			WeaponDrawn = false;
+			WeaponSheatheTimer = 0;
+			SheatheWeapon();
+		}
+	}
 }
 
 void AMouldyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -173,6 +182,11 @@ void AMouldyCharacter::Attack1(const FInputActionValue& Value)
 void AMouldyCharacter::Attack2(const FInputActionValue& Value)
 {
 	UE_LOG(LogMouldy, Error, TEXT("Attack2"));
+}
+
+void AMouldyCharacter::SheatheWeapon()
+{
+	UE_LOG(LogMouldy, Error, TEXT("Sheathing Weapon"));
 }
 
 //void AMouldyCharacter::Wep0(const FInputActionValue& Value)
