@@ -121,11 +121,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpEnd();
 
-	//int referring to last weapon used recently (5 seconds) 0=nothing, 1 = attack1, 2 = attack2
-	int WeaponUsed = 0;
-	//timer to count how long the weapon has been out
-	double WeaponSheatheTimer = 0;
-
 	void SheatheWeapon();
 
 public:
