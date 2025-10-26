@@ -86,6 +86,7 @@ void AMouldyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		Input->BindAction(IA_Jump, ETriggerEvent::Started, this, &ACharacter::Jump);
 		Input->BindAction(IA_Jump, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 		Input->BindAction(IA_Attack1, ETriggerEvent::Triggered, this, &AMouldyCharacter::Attack1);
+		Input->BindAction(IA_Attack1Release, ETriggerEvent::Completed, this, &AMouldyCharacter::Attack1Release);
 		Input->BindAction(IA_Attack2, ETriggerEvent::Triggered, this, &AMouldyCharacter::Attack2);
 		/*Input->BindAction(IA_Wep0, ETriggerEvent::Triggered, this, &AMouldyCharacter::Wep0);
 		Input->BindAction(IA_Wep1, ETriggerEvent::Triggered, this, &AMouldyCharacter::Wep1);
@@ -167,6 +168,13 @@ void AMouldyCharacter::DoJumpEnd()
 void AMouldyCharacter::Attack1(const FInputActionValue& Value)
 {
 	UE_LOG(LogMouldy, Error, TEXT("Attack1"));
+	GetCharacterMovement()->MaxWalkSpeed = 200.f;
+}
+
+void AMouldyCharacter::Attack1Release(const FInputActionValue& Value)
+{
+	UE_LOG(LogMouldy, Error, TEXT("Attack1 Released"));
+	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 }
 
 void AMouldyCharacter::Attack2(const FInputActionValue& Value)

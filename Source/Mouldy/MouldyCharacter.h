@@ -68,6 +68,8 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
 	UInputAction* IA_Attack1;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
+	UInputAction* IA_Attack1Release;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
 	UInputAction* IA_Attack2;
 	/*UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "EnhancedInput")
 	UInputAction* IA_Wep0;
@@ -95,6 +97,7 @@ protected:
 
 
 	UFUNCTION()void Attack1(const FInputActionValue& Value);
+	UFUNCTION()void Attack1Release(const FInputActionValue& Value);
 	UFUNCTION()void Attack2(const FInputActionValue& Value);
 
 	/*UFUNCTION()void Wep0(const FInputActionValue& Value);
