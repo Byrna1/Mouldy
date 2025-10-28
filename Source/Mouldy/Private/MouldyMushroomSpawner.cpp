@@ -8,12 +8,6 @@ AMouldyMushroomSpawner::AMouldyMushroomSpawner()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	spawnerX = GetActorLocation().X;
-	spawnerY = GetActorLocation().Y;
-	if (spawnerX > 0) xPos = -1; //direction mods for the spawning area (protruding from a corner)
-	if (spawnerX < 0) xPos = 1;
-	if (spawnerY > 0) yPos = -1;
-	if (spawnerY < 0) yPos = 1;
 }
 
 // Called when the game starts or when spawned
@@ -21,6 +15,10 @@ void AMouldyMushroomSpawner::BeginPlay()
 {
 	Super::BeginPlay();
 	spawnTimer = 0;
+	if (GetActorLocation().X > 0) xPos = -1; //direction mods for the spawning area (protruding from a corner)
+	if (GetActorLocation().X < 0) xPos = 1;
+	if (GetActorLocation().Y > 0) yPos = -1;
+	if (GetActorLocation().Y < 0) yPos = 1;
 }
 
 // Called every frame
@@ -31,13 +29,13 @@ void AMouldyMushroomSpawner::Tick(float DeltaTime)
 	if (spawnTimer > 3)
 	{
 		static std::mt19937 rng(static_cast<unsigned>(time(nullptr)));
-		std::uniform_real_distribution<float> spawnX(0.0f, 2000.0f);
-		std::uniform_real_distribution<float> spawnY(0.0f, 2000.0f);
+		std::uniform_real_distribution<float> spawnX(0.0f, 1750.0f);
+		std::uniform_real_distribution<float> spawnY(0.0f, 1750.0f);
 		std::uniform_int_distribution<std::mt19937::result_type> shrooms(1, 6);
 		int randomShroom = shrooms(rng);
 		UE_LOG(LogTemp, Warning, TEXT("Spawn X offset: %f"), spawnX(rng));
 		UE_LOG(LogTemp, Warning, TEXT("Spawner X coordinate: %f"), GetActorLocation().X);
-		FVector shroomLocation(((xPos)*(spawnX(rng))) + spawnerX, ((yPos)*(spawnY(rng))) + spawnerY, 0.0f);
+		FVector shroomLocation(((xPos)*(spawnX(rng))) + GetActorLocation().X, ((yPos)*(spawnY(rng))) + GetActorLocation().Y, 0.0f);
 		switch (randomShroom)
 		{
 		case 1:
