@@ -33,8 +33,6 @@ void AMouldyMushroomSpawner::Tick(float DeltaTime)
 		std::uniform_real_distribution<float> spawnY(0.0f, 1750.0f);
 		std::uniform_int_distribution<std::mt19937::result_type> shrooms(1, 6);
 		int randomShroom = shrooms(rng);
-		UE_LOG(LogTemp, Warning, TEXT("Spawn X offset: %f"), spawnX(rng));
-		UE_LOG(LogTemp, Warning, TEXT("Spawner X coordinate: %f"), GetActorLocation().X);
 		FVector shroomLocation(((xPos)*(spawnX(rng))) + GetActorLocation().X, ((yPos)*(spawnY(rng))) + GetActorLocation().Y, 0.0f);
 		switch (randomShroom)
 		{

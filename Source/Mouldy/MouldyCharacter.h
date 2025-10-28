@@ -124,8 +124,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpEnd();
 
-	void SheatheWeapon();
-
 public:
 
 	/** Returns CameraBoom subobject **/

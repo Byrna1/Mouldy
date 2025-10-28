@@ -48,7 +48,6 @@ AMouldyCharacter::AMouldyCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
-
 }
 
 void AMouldyCharacter::Tick(float DeltaSeconds)
@@ -92,7 +91,6 @@ void AMouldyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		Input->BindAction(IA_Wep1, ETriggerEvent::Triggered, this, &AMouldyCharacter::Wep1);
 		Input->BindAction(IA_WepScrollUp, ETriggerEvent::Triggered, this, &AMouldyCharacter::WepScrollUp);
 		Input->BindAction(IA_WepScrollDown, ETriggerEvent::Triggered, this, &AMouldyCharacter::WepScrollDown);*/
-
 	}
 	else
 	{
@@ -167,24 +165,16 @@ void AMouldyCharacter::DoJumpEnd()
 
 void AMouldyCharacter::Attack1(const FInputActionValue& Value)
 {
-	UE_LOG(LogMouldy, Error, TEXT("Attack1"));
 	GetCharacterMovement()->MaxWalkSpeed = 200.f;
 }
 
 void AMouldyCharacter::Attack1Release(const FInputActionValue& Value)
 {
-	UE_LOG(LogMouldy, Error, TEXT("Attack1 Released"));
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 }
 
 void AMouldyCharacter::Attack2(const FInputActionValue& Value)
 {
-	UE_LOG(LogMouldy, Error, TEXT("Attack2"));
-}
-
-void AMouldyCharacter::SheatheWeapon()
-{
-	UE_LOG(LogMouldy, Error, TEXT("Sheathing Weapon"));
 }
 
 //void AMouldyCharacter::Wep0(const FInputActionValue& Value)
