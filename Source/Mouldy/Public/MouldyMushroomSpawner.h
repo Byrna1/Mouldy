@@ -21,11 +21,23 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
+	UPROPERTY(EditDefaultsOnly, Category = "Mushrooms")
+	TSubclassOf<AActor>Mushroom1;
+	UPROPERTY(EditDefaultsOnly, Category = "Mushrooms")
+	TSubclassOf<AActor>Mushroom2;
+	UPROPERTY(EditDefaultsOnly, Category = "Mushrooms")
+	TSubclassOf<AActor>Mushroom3;
+	UPROPERTY(EditDefaultsOnly, Category = "Mushrooms")
+	TSubclassOf<AActor>Mushroom4;
+	UPROPERTY(EditDefaultsOnly, Category = "Mushrooms")
+	TSubclassOf<AActor>Mushroom5;
+	UPROPERTY(EditDefaultsOnly, Category = "Mushrooms")
+	TSubclassOf<AActor>Mushroom6;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	float spawnTimer;
-	float spawnRadius;
-	static std::mt19937 rng(static_cast<unsigned>(time(nullptr)));
-	std::uniform_real_distribution<float> spawnX(0, 2000);
-	std::uniform_real_distribution<float> spawnY(0, 2000);
+	int xPos;
+	int yPos;
+	float spawnerX;
+	float spawnerY;
 };
