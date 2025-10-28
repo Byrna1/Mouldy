@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include <random>
 #include "GameFramework/Actor.h"
 #include "MouldyMushroomSpawner.generated.h"
 
@@ -22,6 +23,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	float shroomTimer;
-
+	float spawnTimer;
+	float spawnRadius;
+	static std::mt19937 rng(static_cast<unsigned>(time(nullptr)));
+	std::uniform_real_distribution<float> spawnX(0, 2000);
+	std::uniform_real_distribution<float> spawnY(0, 2000);
 };
