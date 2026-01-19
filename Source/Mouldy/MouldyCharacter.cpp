@@ -87,6 +87,7 @@ void AMouldyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		Input->BindAction(IA_Attack1, ETriggerEvent::Triggered, this, &AMouldyCharacter::Attack1);
 		Input->BindAction(IA_Attack1Release, ETriggerEvent::Completed, this, &AMouldyCharacter::Attack1Release);
 		Input->BindAction(IA_Attack2, ETriggerEvent::Triggered, this, &AMouldyCharacter::Attack2);
+		Input->BindAction(IA_RMenu, ETriggerEvent::Ongoing, this, &AMouldyCharacter::RMenu);
 		/*Input->BindAction(IA_Wep0, ETriggerEvent::Triggered, this, &AMouldyCharacter::Wep0);
 		Input->BindAction(IA_Wep1, ETriggerEvent::Triggered, this, &AMouldyCharacter::Wep1);
 		Input->BindAction(IA_WepScrollUp, ETriggerEvent::Triggered, this, &AMouldyCharacter::WepScrollUp);
@@ -175,6 +176,11 @@ void AMouldyCharacter::Attack1Release(const FInputActionValue& Value)
 
 void AMouldyCharacter::Attack2(const FInputActionValue& Value)
 {
+}
+
+void AMouldyCharacter::RMenu(const FInputActionValue& Value)
+{
+
 }
 
 //void AMouldyCharacter::Wep0(const FInputActionValue& Value)

@@ -26,7 +26,7 @@ void AMouldyMushroomSpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	spawnTimer += DeltaTime;
-	if (spawnTimer > 3)
+	if (spawnTimer > 3 && mushSpawned < maxSpawn)
 	{
 		static std::mt19937 rng(static_cast<unsigned>(time(nullptr)));
 		std::uniform_real_distribution<float> spawnX(0.0f, 1750.0f);
@@ -55,6 +55,7 @@ void AMouldyMushroomSpawner::Tick(float DeltaTime)
 			GetWorld()->SpawnActor<AActor>(Mushroom6, shroomLocation, FRotator(0.0f, 0.0f, 0.0f));
 			break;
 		}
+		mushSpawned++;
 		spawnTimer = 0;
 	}
 }

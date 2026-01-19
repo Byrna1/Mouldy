@@ -38,6 +38,8 @@ public:
 	float spawnTimer;
 	int xPos;
 	int yPos;
+	int maxSpawn = 5;
+	int mushSpawned = 0;
 	float spawnerX;
 	float spawnerY;
 };
